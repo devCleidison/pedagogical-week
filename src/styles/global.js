@@ -59,6 +59,8 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+
+    cursor: pointer;
   }
 
   a {
