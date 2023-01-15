@@ -56,7 +56,12 @@ export function useTalks() {
           ).toLocaleDateString();
 
           if (actualDate === "19/01/2023") {
-            allTalks.push(doc.data());
+            if(doc.data().vacancies > 0) {
+              allTalks.push(doc.data());
+            }
+            if (doc.data().participants.includes(user?.uid)) {
+              allTalks.push(doc.data());
+            }
           } else {
             if (actualUser?.category === "finais") {
               if (newDateFinal === "24/01/2023") {
