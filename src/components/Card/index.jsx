@@ -31,7 +31,7 @@ export function Card({ data }) {
 
   function convertTmeStampToHour(hour) {
     const newHour = new Date(hour);
-    return newHour.getHours();
+    return `${newHour.getHours()}:${newHour.getMinutes()}`;
   }
 
   useEffect(() => {

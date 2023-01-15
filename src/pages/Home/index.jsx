@@ -30,6 +30,7 @@ export function Home() {
           >
             <option value="morning">Manhã</option>
             <option value="afternoon">Tarde</option>
+            <option value="night">Noite</option>
           </select>
 
         </div>
@@ -43,7 +44,12 @@ export function Home() {
               return <Card key={talk.id} data={talk} />;
             } else if (
               turn === "afternoon" &&
-              convertTmeStampToHour(talk?.initialAt) >= 12
+              convertTmeStampToHour(talk?.initialAt) >= 12 && convertTmeStampToHour(talk?.initialAt) < 18
+            ) {
+              return <Card key={talk.id} data={talk} />;
+            } else if (
+              turn === "night" &&
+              convertTmeStampToHour(talk?.initialAt) >= 18
             ) {
               return <Card key={talk.id} data={talk} />;
             }
