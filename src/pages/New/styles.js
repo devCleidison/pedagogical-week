@@ -27,7 +27,7 @@ export const Content = styled.div`
       flex-direction: column;
       row-gap: 0.6rem;
 
-      input {
+      input, input[type="datetime-local"] {
         border-radius: 0.4rem;
         padding: 0.6rem 1.4rem;
 
