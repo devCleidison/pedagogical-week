@@ -37,13 +37,6 @@ export function New() {
     if (!error) {
       toast.success("Palestra criada com sucesso!");
     }
-
-    setTitle("");
-    setDescription("");
-    setSector("");
-    setMediators("");
-    setInitialAt("");
-    setFinishAt("");
   }
 
   useEffect(() => {
