@@ -30,6 +30,7 @@ export const Content = styled.div`
       input, input[type="datetime-local"] {
         border-radius: 0.4rem;
         padding: 0.6rem 1.4rem;
+        width: 100%;
 
         outline-color: var(--green-color);
       }
