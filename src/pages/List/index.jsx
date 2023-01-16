@@ -18,7 +18,7 @@ export function List() {
       <Navbar />
 
       <Content>
-        <h1 className="title">List</h1>
+        <h1 className="title">Participantes inscritos</h1>
 
         <GridContainer>
           {allTalksForDev.map((talk) => (
