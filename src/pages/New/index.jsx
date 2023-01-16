@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Container, Content } from "./styles";
 
-import { useTalks } from "../../hooks/useTalks"
+import { useTalks } from "../../hooks/useTalks";
 
-import { ToastContainer, toast } from "../../components/Toast"
+import { ToastContainer, toast } from "../../components/Toast";
 import { Navbar } from "../../components/Navbar";
+
+import { Container, Content } from "./styles";
 
 export function New() {
   const [title, setTitle] = useState("");

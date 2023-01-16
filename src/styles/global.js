@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
     --green-color-hover: #16a34a;
     --red-color: #ef4444;
 
-    --nav-height: 7vh;
+    --nav-height: 8vh;
   }
 
   * {

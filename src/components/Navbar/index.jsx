@@ -1,6 +1,7 @@
-import { List, X } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { List, X } from "phosphor-react";
+
 import { useAuthentication } from "../../hooks/useAuthentication";
 
 import { Container, Content } from "./styles";
@@ -81,6 +82,17 @@ export function Navbar() {
                   onClick={handleMenu}
                 >
                   Criar palestra
+                </NavLink>
+              </li>
+            )}
+            {auth.currentUser?.email === "cleidison.dev@gmail.com" && (
+              <li>
+                <NavLink
+                  to="/list-subscribes"
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={handleMenu}
+                >
+                  Inscritos
                 </NavLink>
               </li>
             )}

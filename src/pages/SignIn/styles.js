@@ -8,6 +8,8 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
+  padding-bottom: 4rem;
+
   row-gap: 3rem;
 
   position: relative;
@@ -45,8 +47,9 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  max-width: 90rem;
+  max-width: 86rem;
   width: 90%;
+  height: 50rem;
 
   display: flex;
 
@@ -62,7 +65,7 @@ export const Content = styled.div`
   border: 1px solid rgba(38, 38, 38, 0.1);
 
   .form-container {
-    padding: 3rem;
+    padding: 2.8rem;
     width: 50%;
 
     display: flex;
@@ -72,7 +75,7 @@ export const Content = styled.div`
 
     h1 {
       color: var(--green-color);
-      margin-bottom: 3rem;
+      margin-bottom: 2.4rem;
     }
 
     form {
@@ -84,7 +87,7 @@ export const Content = styled.div`
 
       input {
         width: 100%;
-        padding: 0.8rem 1.4rem;
+        padding: 0.6rem 1.2rem;
         border-radius: 0.4rem;
 
         &::placeholder {
@@ -92,7 +95,7 @@ export const Content = styled.div`
         }
 
         & + input {
-          margin-top: 2rem;
+          margin-top: 1.6rem;
         }
 
         &:focus {
@@ -102,8 +105,8 @@ export const Content = styled.div`
 
       select {
         width: 100%;
-        padding: 0.8rem 1.4rem;
-        margin-top: 2rem;
+        padding: 0.6rem 1.2rem;
+        margin-top: 1.6rem;
         border-radius: 0.4rem;
 
         outline-color: var(--green-color);
@@ -123,8 +126,8 @@ export const Content = styled.div`
         background-color: var(--green-color);
         width: 100%;
 
-        margin-top: 3rem;
-        padding: 1rem 1.4rem;
+        margin-top: 2.4rem;
+        padding: .8rem 1.2rem;
         border-radius: 0.4rem;
 
         box-shadow: 0 0.4rem 0 var(--green-color-dark);
@@ -141,7 +144,7 @@ export const Content = styled.div`
     }
 
     p {
-      margin-top: 3rem;
+      margin-top: 2.8rem;
 
       button {
         color: var(--green-color);

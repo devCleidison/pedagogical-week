@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import cuid from "cuid";
 
 import {
   arrayRemove,
@@ -10,7 +11,6 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import cuid from "cuid";
 
 import { db } from "../services/firebase";
 
@@ -19,6 +19,7 @@ import { useAuthValue } from "../context/AuthContext";
 export function useTalks() {
   const [error, setError] = useState(null);
   const [selectedTalks, setSelectedTalks] = useState([]);
+  const [allTalksForDev, setAllTalksForDev] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const { user } = useAuthValue();
@@ -35,7 +36,10 @@ export function useTalks() {
     const actualDate = new Date(actualTimeStamp).toLocaleDateString();
 
     const allTalks = [];
+    const allTalksDev = [];
     let actualUser = null;
+
+    setLoading(true);
 
     try {
       onSnapshot(usersDocRef, { includeMetadataChanges: true }, (snapshot) => {
@@ -51,12 +55,11 @@ export function useTalks() {
           const newDateInitial = new Date(
             doc.data().initialAt
           ).toLocaleDateString();
-          const newDateFinal = new Date(
-            doc.data().initialAt
-          ).toLocaleDateString();
+
+          allTalksDev.push(doc.data());
 
           if (actualDate === "19/01/2023") {
-            if(doc.data().vacancies > 0) {
+            if (doc.data().vacancies > 0) {
               allTalks.push(doc.data());
             }
             if (doc.data().participants.includes(user?.uid)) {
@@ -64,7 +67,7 @@ export function useTalks() {
             }
           } else {
             if (actualUser?.category === "finais") {
-              if (newDateFinal === "24/01/2023") {
+              if (newDateInitial === "24/01/2023") {
                 allTalks.push(doc.data());
               }
             } else if (actualUser?.category !== "finais") {
@@ -77,8 +80,23 @@ export function useTalks() {
         });
       });
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     }
+
+    setLoading(false);
+  }
+
+  async function getAllSubscribesCodeAtTalk() {
+    const talksDocRef = collection(db, "talks");
+
+    const allTalks = [];
+
+    onSnapshot(talksDocRef, (snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        allTalks.push(doc.data());
+      });
+    });
+    setAllTalksForDev(allTalks);
   }
 
   async function createNewTalk(talk) {
@@ -131,5 +149,13 @@ export function useTalks() {
     getDataUsersAndTalks();
   }
 
-  return { createNewTalk, handleSubscribeAtTalk, selectedTalks, error };
+  return {
+    createNewTalk,
+    handleSubscribeAtTalk,
+    getAllSubscribesCodeAtTalk,
+    allTalksForDev,
+    selectedTalks,
+    loading,
+    error,
+  };
 }

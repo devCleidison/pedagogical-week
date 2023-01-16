@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
-import cuid from "cuid";
 
 export function useAuthentication() {
   const [error, setError] = useState(null);

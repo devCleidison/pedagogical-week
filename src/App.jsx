@@ -4,13 +4,14 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";
 import { Home } from "./pages/Home";
 import { Loading } from "./components/Loading";
+import { List } from "./pages/List";
+import { New } from "./pages/New";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { useAuthentication } from "./hooks/useAuthentication";
 import { AuthProvider } from "./context/AuthContext";
 
 import { GlobalStyle } from "./styles/global";
-import { New } from "./pages/New";
 
 export function App() {
   const [user, setUser] = useState(null);
@@ -28,7 +29,10 @@ export function App() {
         <AuthProvider value={{ user }}>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={user ? <Navigate to="home" /> : <SignIn />} />
+              <Route
+                path="/"
+                element={user ? <Navigate to="home" /> : <SignIn />}
+              />
               <Route path="*" element={<Navigate to="/" />} />
 
               <Route path="/" element={<Navigate to="login" />} />
@@ -37,6 +41,9 @@ export function App() {
 
               {auth.currentUser?.email === "cleidison.dev@gmail.com" && (
                 <Route path="new" element={<New />} />
+              )}
+              {auth.currentUser?.email === "cleidison.dev@gmail.com" && (
+                <Route path="list-subscribes" element={<List />} />
               )}
             </Routes>
           </BrowserRouter>

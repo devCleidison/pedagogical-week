@@ -1,11 +1,14 @@
 import { useState } from "react";
+
 import { Card } from "../../components/Card";
 import { Navbar } from "../../components/Navbar";
+
 import { useTalks } from "../../hooks/useTalks";
+
 import { Container, Content, GridContainer } from "./styles";
 
 export function Home() {
-  const { selectedTalks } = useTalks();
+  const { selectedTalks, loading } = useTalks();
   const [turn, setTurn] = useState("morning");
 
   function convertTmeStampToHour(hour) {
@@ -34,27 +37,29 @@ export function Home() {
           </select>
         </div>
 
-        <GridContainer>
-          {selectedTalks.map((talk) => {
-            if (
-              turn === "morning" &&
-              convertTmeStampToHour(talk?.initialAt) < 12
-            ) {
-              return <Card key={talk.id} data={talk} />;
-            } else if (
-              turn === "afternoon" &&
-              convertTmeStampToHour(talk?.initialAt) >= 12 &&
-              convertTmeStampToHour(talk?.initialAt) < 18
-            ) {
-              return <Card key={talk.id} data={talk} />;
-            } else if (
-              turn === "night" &&
-              convertTmeStampToHour(talk?.initialAt) >= 18
-            ) {
-              return <Card key={talk.id} data={talk} />;
-            }
-          })}
-        </GridContainer>
+        {!loading && (
+          <GridContainer>
+            {selectedTalks.map((talk) => {
+              if (
+                turn === "morning" &&
+                convertTmeStampToHour(talk?.initialAt) < 12
+              ) {
+                return <Card key={talk.id} data={talk} showSubscribe={false} />;
+              } else if (
+                turn === "afternoon" &&
+                convertTmeStampToHour(talk?.initialAt) >= 12 &&
+                convertTmeStampToHour(talk?.initialAt) < 18
+              ) {
+                return <Card key={talk.id} data={talk} showSubscribe={false} />;
+              } else if (
+                turn === "night" &&
+                convertTmeStampToHour(talk?.initialAt) >= 18
+              ) {
+                return <Card key={talk.id} data={talk} showSubscribe={false} />;
+              }
+            })}
+          </GridContainer>
+        )}
       </Content>
     </Container>
   );

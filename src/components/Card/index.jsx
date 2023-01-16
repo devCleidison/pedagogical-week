@@ -1,21 +1,40 @@
-import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
+
+import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
+import { db } from "../../services/firebase";
+
 import { useAuthValue } from "../../context/AuthContext";
 import { useTalks } from "../../hooks/useTalks";
-import { db } from "../../services/firebase";
 
 import { Container } from "./styles";
 
-export function Card({ data }) {
+export function Card({ data, showSubscribe }) {
   const [updatedData, setUpdatedData] = useState();
+  const [participantName, setParticipantName] = useState([]);
 
   const { handleSubscribeAtTalk } = useTalks();
   const { user } = useAuthValue();
-  
+
+  async function getNameSubscribe() {
+    let usersName = [];
+    let userCode = null;
+
+    data.participants.map((code) => {
+      userCode = code;
+    });
+
+    if (userCode) {
+      const userDocRef = doc(db, "users", userCode);
+      const docSnap = await getDoc(userDocRef);
+      usersName.push(docSnap.data().displayName);
+      setParticipantName(usersName);
+    }
+  }
+
   async function handleSubscribe() {
     let isSubscribe = null;
 
-    if(!updatedData?.participants.includes(user.uid)) {
+    if (!updatedData?.participants.includes(user.uid)) {
       isSubscribe = true;
     } else {
       isSubscribe = false;
@@ -30,8 +49,13 @@ export function Card({ data }) {
   }
 
   function convertTmeStampToHour(hour) {
-    const newHour = new Date(hour);
-    return `${newHour.getHours()}:${newHour.getMinutes()}`;
+    const newHour = new Date(hour).getHours();
+    const newMinutes = new Date(hour).getMinutes();
+
+    if (newMinutes < 10) {
+      return `${newHour}:${newMinutes}0`;
+    }
+    return `${newHour}:${newMinutes}0`;
   }
 
   useEffect(() => {
@@ -47,23 +71,35 @@ export function Card({ data }) {
 
       setUpdatedData(newData);
     });
+
+    if (showSubscribe) {
+      getNameSubscribe();
+    }
   }, []);
 
   return (
     <Container>
       <h1 className="title-card">{updatedData?.title}</h1>
-      {updatedData?.description && (
-        <p className="description-card">{updatedData?.description}</p>
+      {!showSubscribe && (
+        <>
+          {updatedData?.description && (
+            <p className="description-card">{updatedData?.description}</p>
+          )}
+        </>
       )}
 
       <div className="info-container">
-        <span>
-          Setor: <span>{String(updatedData?.sector).toUpperCase()}</span>
-        </span>
+        {!showSubscribe && (
+          <>
+            <span>
+              Setor: <span>{String(updatedData?.sector).toUpperCase()}</span>
+            </span>
 
-        <span>
-          Mediadores (as): <span>{updatedData?.mediators}</span>
-        </span>
+            <span>
+              Mediadores (as): <span>{updatedData?.mediators}</span>
+            </span>
+          </>
+        )}
 
         <div className="info-lecture">
           <span>
@@ -84,25 +120,40 @@ export function Card({ data }) {
                 </span>
               </span>
             </div>
-            {!updatedData?.participants.includes(user?.uid) && (
-              <button
-                type="button"
-                onClick={handleSubscribe}
-                className="active"
-                disabled={updatedData?.vacancies === 0}
-              >
-                Inscreva-se
-              </button>
+            {!showSubscribe && (
+              <>
+                {!updatedData?.participants.includes(user?.uid) && (
+                  <button
+                    type="button"
+                    onClick={handleSubscribe}
+                    className="active"
+                    disabled={updatedData?.vacancies === 0}
+                  >
+                    Inscreva-se
+                  </button>
+                )}
+                {updatedData?.participants.includes(user?.uid) && (
+                  <button
+                    type="button"
+                    onClick={handleSubscribe}
+                    className="remove"
+                  >
+                    Remover inscrição
+                  </button>
+                )}
+              </>
             )}
-            {updatedData?.participants.includes(user?.uid) && (
-              <button
-                type="button"
-                onClick={handleSubscribe}
-                className="remove"
-              >
-                Remover inscrição
-              </button>
-            )}
+
+            {showSubscribe ? (
+              <div className="participants">
+                <span>Participantes:</span>
+                <ul>
+                  {participantName.map((participant) => (
+                    <li key={participant}>{participant}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

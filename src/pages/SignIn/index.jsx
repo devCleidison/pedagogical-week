@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {useAuthentication} from "../../hooks/useAuthentication"
+import { useAuthentication } from "../../hooks/useAuthentication";
 
 import sideImg from "../../assets/side-image-sign-in.png";
-import { ToastContainer, toast } from "../../components/Toast"
+import { ToastContainer, toast } from "../../components/Toast";
 
 import { Container, Content, Ball } from "./styles";
 
@@ -133,7 +133,7 @@ export function SignIn() {
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
-                placeholder="Nome"
+                placeholder="Nome completo"
                 required
                 onChange={(e) => setDisplayName(e.target.value)}
                 value={displayName}
@@ -193,4 +193,4 @@ export function SignIn() {
       </Content>
     </Container>
   );
-};
+}

@@ -49,6 +49,24 @@ export const Container = styled.div`
 
         height: 100%;
 
+        .participants {
+          width: 100%;
+
+          span {
+            font-size: 1.8rem;
+          }
+
+          ul {
+            list-style: decimal;
+            list-style-position: inside;
+            /* margin-top: .8rem; */
+
+            li {
+              color: var(--gray-color);
+            }
+          }
+        }
+
         @media (min-width: 240px) {
           flex-direction: column;
           row-gap: 2rem;
