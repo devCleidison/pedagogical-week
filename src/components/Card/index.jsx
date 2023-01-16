@@ -55,7 +55,7 @@ export function Card({ data, showSubscribe }) {
     if (newMinutes < 10) {
       return `${newHour}:${newMinutes}0`;
     }
-    return `${newHour}:${newMinutes}0`;
+    return `${newHour}:${newMinutes}`;
   }
 
   useEffect(() => {

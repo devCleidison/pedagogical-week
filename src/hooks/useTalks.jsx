@@ -6,6 +6,8 @@ import {
   arrayUnion,
   collection,
   doc,
+  getDoc,
+  getDocs,
   increment,
   onSnapshot,
   setDoc,
@@ -29,56 +31,50 @@ export function useTalks() {
   }, []);
 
   async function getDataUsersAndTalks() {
-    const usersDocRef = collection(db, "users");
+    const usersDocRef = doc(db, "users", user?.uid);
     const talksDocRef = collection(db, "talks");
 
     const actualTimeStamp = Date.now();
     const actualDate = new Date(actualTimeStamp).toLocaleDateString();
 
     const allTalks = [];
-    const allTalksDev = [];
-    let actualUser = null;
-
+    // const allTalksDev = [];
+    
     setLoading(true);
 
     try {
-      onSnapshot(usersDocRef, { includeMetadataChanges: true }, (snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          if (doc.data().id === user?.reloadUserInfo.localId) {
-            actualUser = doc.data();
+      
+      const userDoc = await getDoc(usersDocRef);
+      const actualUser = userDoc.data();
+
+      const talksDoc = await getDocs(talksDocRef);
+
+      talksDoc.forEach((doc) => {
+        const newDateInitial = new Date(
+          doc.data().initialAt
+        ).toLocaleDateString();
+
+        if (actualDate === "19/01/2023") {
+          if (doc.data().vacancies > 0) {
+            allTalks.push(doc.data());
           }
-        });
-      });
-
-      onSnapshot(talksDocRef, { includeMetadataChanges: true }, (snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          const newDateInitial = new Date(
-            doc.data().initialAt
-          ).toLocaleDateString();
-
-          allTalksDev.push(doc.data());
-
-          if (actualDate === "19/01/2023") {
-            if (doc.data().vacancies > 0) {
+          if (doc.data().participants.includes(user?.uid)) {
+            allTalks.push(doc.data());
+          }
+        } else {
+          if (actualUser?.category === "finais") {
+            if (newDateInitial === "24/01/2023") {
               allTalks.push(doc.data());
             }
-            if (doc.data().participants.includes(user?.uid)) {
+          } else if (actualUser?.category !== "finais") {
+            if (newDateInitial === "23/01/2023") {
               allTalks.push(doc.data());
             }
-          } else {
-            if (actualUser?.category === "finais") {
-              if (newDateInitial === "24/01/2023") {
-                allTalks.push(doc.data());
-              }
-            } else if (actualUser?.category !== "finais") {
-              if (newDateInitial === "23/01/2023") {
-                allTalks.push(doc.data());
-              }
-            }
           }
-          setSelectedTalks(allTalks);
-        });
+        }
       });
+
+      setSelectedTalks(allTalks);
     } catch (err) {
       setError(err.message);
     }
@@ -87,15 +83,12 @@ export function useTalks() {
   }
 
   async function getAllSubscribesCodeAtTalk() {
-    const talksDocRef = collection(db, "talks");
-
     const allTalks = [];
+    const talksDocRef = collection(db, "talks");
+    const talksDoc = await getDocs(talksDocRef);
 
-    onSnapshot(talksDocRef, (snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        allTalks.push(doc.data());
-      });
-    });
+    talksDoc.docs.forEach(talk => allTalks.push(talk));
+
     setAllTalksForDev(allTalks);
   }
 

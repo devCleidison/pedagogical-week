@@ -34,7 +34,6 @@ export function useAuthentication() {
           const docRef = await setDoc(doc(db, "admin", userId), {
             id: user.uid,
             displayName: data.displayName,
-            email: data.email,
           });
         } catch (err) {
           setError(err.message);
@@ -69,7 +68,6 @@ export function useAuthentication() {
           const docRef = await setDoc(doc(db, "users", userId), {
             id: user.uid,
             displayName: data.displayName,
-            email: data.email,
             category: data.category,
             talks: [],
           });
