@@ -1,7 +1,0 @@
-VITE_API_KEY = "AIzaSyDIvaJrxLlw11HU4J4dYV7cTLNotHJzba0"
-VITE_AUTH_DOMAIN = "pedagogical-week-564b4.firebaseapp.com"
-VITE_PROJECT_ID = "pedagogical-week-564b4"
-VITE_STORAGE_BUCKET = "pedagogical-week-564b4.appspot.com"
-VITE_MESSAGING_SENDER_ID = "801674225605"
-VITE_APP_ID = "1:801674225605:web:7ad6ad5ffb8f0874d44dac"
-VITE_MEASUREMENT_ID = "G-PSENXMK5LH"

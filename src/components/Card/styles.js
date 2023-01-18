@@ -45,7 +45,7 @@ export const Container = styled.div`
       .info {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: ${props => props.show ? 'center' : 'space-between'};
 
         height: 100%;
 
@@ -59,7 +59,6 @@ export const Container = styled.div`
           ul {
             list-style: decimal;
             list-style-position: inside;
-            /* margin-top: .8rem; */
 
             li {
               color: var(--gray-color);

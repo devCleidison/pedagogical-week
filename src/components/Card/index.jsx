@@ -15,20 +15,13 @@ export function Card({ data, showSubscribe }) {
   const { handleSubscribeAtTalk } = useTalks();
   const { user } = useAuthValue();
 
-  async function getNameSubscribe() {
-    let usersName = [];
-    let userCode = null;
+  async function getNameSubscribeAtTalk(codeUsers) {
+    codeUsers.forEach(async (code) => {
+      const usersDocRef = doc(db, "users", code);
+      const userDoc = await getDoc(usersDocRef);
 
-    data.participants.map((code) => {
-      userCode = code;
+      setParticipantName(oldName => [...oldName, userDoc.data().displayName])
     });
-
-    if (userCode) {
-      const userDocRef = doc(db, "users", userCode);
-      const docSnap = await getDoc(userDocRef);
-      usersName.push(docSnap.data().displayName);
-      setParticipantName(usersName);
-    }
   }
 
   async function handleSubscribe() {
@@ -68,17 +61,15 @@ export function Card({ data, showSubscribe }) {
           newData = doc.data();
         }
       });
-
+      if (newData.participants.length > 0) {
+        getNameSubscribeAtTalk(newData.participants);
+      }
       setUpdatedData(newData);
     });
-
-    if (showSubscribe) {
-      getNameSubscribe();
-    }
   }, []);
 
   return (
-    <Container>
+    <Container show={showSubscribe}>
       <h1 className="title-card">{updatedData?.title}</h1>
       {!showSubscribe && (
         <>
@@ -148,7 +139,7 @@ export function Card({ data, showSubscribe }) {
               <div className="participants">
                 <span>Participantes:</span>
                 <ul>
-                  {participantName.map((participant) => (
+                  {participantName?.map((participant) => (
                     <li key={participant}>{participant}</li>
                   ))}
                 </ul>

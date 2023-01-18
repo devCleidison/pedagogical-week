@@ -40,7 +40,7 @@ export const Content = styled.div`
 
 export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(26rem, 35rem));
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 60rem));
   gap: 2rem;
   place-content: center;
 
