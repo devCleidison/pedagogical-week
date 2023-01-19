@@ -63,7 +63,7 @@ export function Navbar() {
                 Início
               </NavLink>
             </li>
-            {!auth.currentUser?.email === "cleidison.dev@gmail.com" && (
+            {auth.currentUser?.email !== "cleidison.dev@gmail.com" && (
               <li>
                 <NavLink
                   to="/subscribes"

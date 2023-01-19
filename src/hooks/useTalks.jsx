@@ -9,7 +9,6 @@ import {
   getDoc,
   getDocs,
   increment,
-  onSnapshot,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -21,6 +20,7 @@ import { useAuthValue } from "../context/AuthContext";
 export function useTalks() {
   const [error, setError] = useState(null);
   const [selectedTalks, setSelectedTalks] = useState([]);
+  const [subscribedTalks, setSubscribedTalks] = useState([]);
   const [allTalksForDev, setAllTalksForDev] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -38,11 +38,11 @@ export function useTalks() {
     const actualDate = new Date(actualTimeStamp).toLocaleDateString();
 
     const allTalks = [];
-    
+    const allSubscribedTalks = [];
+
     setLoading(true);
 
     try {
-      
       const userDoc = await getDoc(usersDocRef);
       const actualUser = userDoc.data();
 
@@ -53,22 +53,29 @@ export function useTalks() {
           doc.data().initialAt
         ).toLocaleDateString();
 
-        if(newDateInitial === "20/01/2023") {
-          return;
+        if (doc.data().participants.includes(user?.uid)) {
+          allSubscribedTalks.push(doc.data());
         }
-
-        if (actualDate === "19/01/2023") {
+        
+        if (actualDate === "18/01/2023") {
           allTalks.push(doc.data());
         } else {
-          if (actualUser?.category === "finais" && newDateInitial === "24/01/2023") {
+          if (
+            actualUser?.category === "finais" &&
+            newDateInitial === "24/01/2023"
+          ) {
             allTalks.push(doc.data());
-          } else if (actualUser?.category !== "finais" && newDateInitial === "23/01/2023") {
+          } else if (
+            actualUser?.category !== "finais" &&
+            newDateInitial === "23/01/2023"
+          ) {
             allTalks.push(doc.data());
           }
         }
       });
 
       setSelectedTalks(allTalks);
+      setSubscribedTalks(allSubscribedTalks);
     } catch (err) {
       setError(err.message);
     }
@@ -81,7 +88,7 @@ export function useTalks() {
     const talksDocRef = collection(db, "talks");
     const talksDoc = await getDocs(talksDocRef);
 
-    talksDoc.docs.forEach(talk => allTalks.push(talk));
+    talksDoc.docs.forEach((talk) => allTalks.push(talk));
 
     setAllTalksForDev(allTalks);
   }
@@ -142,6 +149,7 @@ export function useTalks() {
     getAllSubscribesCodeAtTalk,
     allTalksForDev,
     selectedTalks,
+    subscribedTalks,
     loading,
     error,
   };

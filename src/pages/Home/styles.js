@@ -27,6 +27,25 @@ export const Content = styled.div`
     }
   }
 
+  .finished {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: calc(100vh - var(--nav-height));
+
+    h2 {
+      color: #facc15;
+      font-size: 4rem;
+    }
+
+    span {
+      font-size: 3rem;
+      text-align: center;
+    }
+  }
+
   .select-turn {
     display: flex;
     align-items: center;
