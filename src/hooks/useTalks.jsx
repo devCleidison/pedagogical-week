@@ -57,7 +57,7 @@ export function useTalks() {
           allSubscribedTalks.push(doc.data());
         }
         
-        if (actualDate === "18/01/2023") {
+        if (actualDate === "19/01/2023") {
           allTalks.push(doc.data());
         } else {
           if (
