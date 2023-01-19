@@ -23,6 +23,11 @@ export function Home() {
       <Content>
         <h1 className="title">Palestras</h1>
 
+        <div className="warning">
+          <h2>Atenção!</h2>
+          <span>As inscrições se encerram as 23:59 de hoje!</span>
+        </div>
+
         <div className="select-turn">
           <p>Período: </p>
 

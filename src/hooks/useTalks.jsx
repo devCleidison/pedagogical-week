@@ -53,6 +53,10 @@ export function useTalks() {
           doc.data().initialAt
         ).toLocaleDateString();
 
+        if(newDateInitial === "20/01/2023") {
+          return;
+        }
+
         if (actualDate === "19/01/2023") {
           allTalks.push(doc.data());
         } else {
