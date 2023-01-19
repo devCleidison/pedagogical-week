@@ -24,6 +24,8 @@ export const Content = styled.div`
 
     span {
       font-size: 3rem;
+      text-align: center;
+      max-width: 90%;
     }
   }
 
@@ -43,6 +45,7 @@ export const Content = styled.div`
     span {
       font-size: 3rem;
       text-align: center;
+      max-width: 90%;
     }
   }
 
