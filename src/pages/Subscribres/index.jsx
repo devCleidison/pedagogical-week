@@ -1,5 +1,6 @@
 import { Card } from "../../components/Card";
 import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 
 import { useTalks } from "../../hooks/useTalks";
 
@@ -20,6 +21,8 @@ export function Subscribes() {
             {subscribedTalks.map((talk) => (
               <Card key={talk.id} data={talk} showSubscribe={false} />
             ))}
+
+            <Footer />
           </GridContainer>
         )}
       </Content>

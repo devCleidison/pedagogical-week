@@ -5,10 +5,15 @@ export const Container = styled.div`
   flex-direction: column;
 
   position: relative;
+  
 `;
 
 export const Content = styled.div`
   padding-top: var(--nav-height);
+
+  height: calc(100vh - 6.8rem);
+
+  position: relative;
 
   .warning {
     display: flex;
@@ -35,17 +40,69 @@ export const Content = styled.div`
     align-items: center;
     justify-content: center;
 
-    height: calc(100vh - var(--nav-height));
+    width: 90%;
+    max-width: 50rem;
+    height: 52rem;
+
+    padding: 2.8rem;
+    border-radius: 1.6rem;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background-color: var(--black-color-light);
+
+    button {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+
+      font-size: 2.4rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     h2 {
       color: #facc15;
       font-size: 4rem;
+      margin-bottom: 2rem;
     }
 
-    span {
-      font-size: 3rem;
+    p {
+      margin-bottom: 1rem;
+    }
+
+    span, p {
+      font-size: 2rem;
       text-align: center;
-      max-width: 90%;
+    }
+
+    .canceled {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      h3 {
+        color: #facc15;
+      }
+
+      p {
+        margin-bottom: initial;
+        font-size: initial;
+
+        span {
+          color: #dc2626;
+          font-size: initial;
+        }
+      }
     }
   }
 
@@ -86,4 +143,6 @@ export const GridContainer = styled.div`
   max-width: 130rem;
   margin-inline: auto;
   padding: 2rem 2.4rem var(--nav-height);
+
+  padding-bottom: 14rem;
 `;

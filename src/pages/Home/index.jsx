@@ -1,7 +1,9 @@
+import { X } from "phosphor-react";
 import { useEffect, useState } from "react";
 
 import { Card } from "../../components/Card";
 import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 
 import { useTalks } from "../../hooks/useTalks";
 
@@ -10,6 +12,7 @@ import { Container, Content, GridContainer } from "./styles";
 export function Home() {
   const { selectedTalks, loading } = useTalks();
   const [turn, setTurn] = useState("morning");
+  const [showModal, setShowModal] = useState(true);
 
   const [actualTimeStamp] = useState(Date.now());
   const [actualDate] = useState(new Date(actualTimeStamp).toLocaleDateString());
@@ -24,19 +27,42 @@ export function Home() {
       <Navbar />
 
       <Content>
-        {actualDate > "19/01/2023" ? (
-          <div className="finished">
-            <h2>Atenção!</h2>
-            <span>Inscrições encerradas!</span>
-          </div>
+        {showModal ? (
+          <>
+            {actualDate < "23/01/2023" ? (
+              <div className="finished">
+                <button onClick={() => setShowModal(false)}>
+                  <X />
+                </button>
+                <h2>Atenção!</h2>
+                <p>Devido a pedidos, reabrimos as inscrições.</p>
+                <span>
+                  As inscrições ficarão disponíveis até às 23:59 deste domingo!
+                </span>
+
+                <div className="canceled">
+                  <h3>Palestra "Empreendedorismo na escola"</h3>
+                  <p>
+                    Dia: 23/01 de 8h às 10h - <span>Cancelada</span>
+                  </p>
+                  <p>
+                    Dia: 24/01 de 13h às 16:30h - <span>Cancelada</span>
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="finished">
+                <button onClick={() => setShowModal(false)}>
+                  <X />
+                </button>
+                <h2>Atenção!</h2>
+                <p>Inscrições encerradas</p>
+              </div>
+            )}
+          </>
         ) : (
           <>
             <h1 className="title">Palestras</h1>
-
-            <div className="warning">
-              <h2>Atenção!</h2>
-              <span>As inscrições se encerram as 23:59 de hoje!</span>
-            </div>
 
             <div className="select-turn">
               <p>Período: </p>
@@ -83,6 +109,7 @@ export function Home() {
             )}
           </>
         )}
+        <Footer />
       </Content>
     </Container>
   );
