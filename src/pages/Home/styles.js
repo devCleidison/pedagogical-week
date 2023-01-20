@@ -99,7 +99,7 @@ export const Content = styled.div`
         font-size: initial;
 
         span {
-          color: #dc2626;
+          color: #facc15;
           font-size: initial;
         }
       }
