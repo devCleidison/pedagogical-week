@@ -6,12 +6,12 @@ export const Container = styled.div`
 
   position: relative;
   
+  min-height: calc(100vh - 6.8rem);
 `;
 
 export const Content = styled.div`
-  padding-top: var(--nav-height);
-
-  height: calc(100vh - 6.8rem);
+  margin-top: var(--nav-height);
+  min-height: 100vh;
 
   position: relative;
 
@@ -42,7 +42,7 @@ export const Content = styled.div`
 
     width: 90%;
     max-width: 50rem;
-    height: 52rem;
+    /* height: 60rem; */
 
     padding: 2.8rem;
     border-radius: 1.6rem;
@@ -70,7 +70,6 @@ export const Content = styled.div`
     h2 {
       color: #facc15;
       font-size: 4rem;
-      margin-bottom: 2rem;
     }
 
     p {
@@ -83,7 +82,6 @@ export const Content = styled.div`
     }
 
     .canceled {
-      margin-top: 3rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -92,6 +90,7 @@ export const Content = styled.div`
 
       h3 {
         color: #facc15;
+        margin-top: 3rem;
       }
 
       p {
@@ -144,5 +143,5 @@ export const GridContainer = styled.div`
   margin-inline: auto;
   padding: 2rem 2.4rem var(--nav-height);
 
-  padding-bottom: 14rem;
+  padding-bottom: 6rem;
 `;

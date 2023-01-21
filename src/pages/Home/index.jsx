@@ -48,6 +48,12 @@ export function Home() {
                   <p>
                     Dia: 24/01 de 13h às 16:30h - <span>Cancelada</span>
                   </p>
+
+                  <h3>Palestra "Impacto do racismo na escola"</h3>
+                  <p>
+                    Dia: 24/01 de 13h às 16:30h -{" "}
+                    <span>Antecipada para 23/01 no mesmo horário</span>
+                  </p>
                 </div>
               </div>
             ) : (
@@ -109,8 +115,8 @@ export function Home() {
             )}
           </>
         )}
-        <Footer />
       </Content>
+      <Footer />
     </Container>
   );
 }
