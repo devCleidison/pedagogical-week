@@ -21,11 +21,10 @@ export function Subscribes() {
             {subscribedTalks.map((talk) => (
               <Card key={talk.id} data={talk} showSubscribe={false} />
             ))}
-
-            <Footer />
           </GridContainer>
         )}
       </Content>
+      <Footer />
     </Container>
   );
 }

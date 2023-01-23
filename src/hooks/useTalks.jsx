@@ -57,10 +57,11 @@ export function useTalks() {
           allSubscribedTalks.push(doc.data());
         }
         
-        if (actualDate < "23/01/2023") {
-          if(doc.data().vacancies > 0) {
-            allTalks.push(doc.data());
-          }
+        if (actualDate >= "23/01/2023") {
+          // if(doc.data().vacancies > 0) {
+          //   allTalks.push(doc.data());
+          // }
+          return;
         } else {
           if (
             actualUser?.category === "finais" &&

@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   margin-top: var(--nav-height);
-  min-height: 100vh;
+  min-height: calc(100vh - var(--nav-height) - var(--nav-height));
 
   position: relative;
 

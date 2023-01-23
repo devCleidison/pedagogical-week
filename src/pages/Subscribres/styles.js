@@ -9,6 +9,8 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   padding-top: var(--nav-height);
+
+  min-height: calc(100vh - var(--nav-height));
 `;
 
 export const GridContainer = styled.div`
